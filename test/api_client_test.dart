@@ -3,19 +3,22 @@ import 'package:http/http.dart';
 import 'package:test/test.dart';
 
 void main() {
-    test("test", () async {
-        var host = LocalApiHost();
-        var e = Endpoint(
-            'get',
-            host,
-            '/regions',
-            auth: KeyAuth('secret-key'),
-            defaultHandler: (r) {},
-        );
+  test("test", () async {
+    var host = LocalApiHost();
+    var e = Endpoint(
+      '/regions',
+      defaultHandler: (r) {},
+    );
 
-        var c = Client();
-        var api = ApiClient(c, ApiMode.dev, pathPrefix: '/api/v1');
+    var c = Client();
+    var api = ApiClient(
+      c,
+      ApiMode.dev,
+      defaultPrefix: '/api/v1',
+      defaultHost: host,
+      defaultAuth: KeyAuth('secret-key'),
+    );
 
-        await api.request(e);
-    });
+    await api.request(e);
+  });
 }

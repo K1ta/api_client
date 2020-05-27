@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+/// Class for creating authorization header value
 abstract class ApiAuth {
   String get();
 }
 
+/// Implementation on basic auth with email and password
 class BasicAuth implements ApiAuth {
   final String login;
   final String password;
@@ -17,6 +19,7 @@ class BasicAuth implements ApiAuth {
   }
 }
 
+/// Implementation of key auth with Bearer token
 class KeyAuth implements ApiAuth {
   final String key;
 

@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+/// Class for creating body bytes
 abstract class ApiBody {
+  /// Get body bytes
   List<int> get();
 
+  /// Get headers associated with body
   Map<String, String> getHeaders();
 }
 
+/// Json body with 'Content-Type' header
 class JsonBody implements ApiBody {
   final Map<String, dynamic> payload;
 
@@ -24,6 +28,7 @@ class JsonBody implements ApiBody {
   }
 }
 
+/// Url-encoded body with 'Content-Type' header
 class UrlEncodedBody implements ApiBody {
   final Map<String, String> payload;
 
@@ -43,6 +48,7 @@ class UrlEncodedBody implements ApiBody {
   }
 }
 
+/// Body of simple string with 'Content-Type' header
 class StringBody implements ApiBody {
   final String payload;
 
