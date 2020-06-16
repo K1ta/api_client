@@ -38,20 +38,20 @@ class ApiClient {
   ApiHost defaultHost;
 
   /// Handlers for response, has second priority in [_handle]
-  Map<int, Function(Response)> handlers;
+  Map<int, dynamic Function(Response)> handlers;
 
   /// Request handler, has lowest priority in [_handle]
   Function(Response) defaultHandler;
 
-  ApiClient(
-    this.client,
+  ApiClient(this.client,
     this.mode, {
-    this.defaultPrefix,
-    this.defaultHost,
-    this.defaultAuth,
-    this.logger,
-    this.handlers,
-  }) {
+      this.defaultPrefix,
+      this.defaultHost,
+      this.defaultAuth,
+      this.logger,
+      this.handlers,
+      this.defaultHandler,
+    }) {
     logger ??= DefaultApiLogger();
   }
 
