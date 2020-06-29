@@ -1,10 +1,3 @@
-A library for simplifying requests to API.
-
-## Usage
-
-A simple usage example:
-
-```dart
 import 'package:api_client/api_client.dart';
 import 'package:http/http.dart';
 
@@ -22,11 +15,3 @@ void main() async {
 
   await api.request(e);
 }
-
-```
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: https://github.com/K1ta/api_client/issues
