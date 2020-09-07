@@ -33,6 +33,10 @@ class ApiClient {
   /// in endpoint
   ApiAuth defaultAuth;
 
+  /// Default authorization for request, calculating before every request. It
+  /// has more priority than [defaultAuth]
+  Future<ApiAuth> Function() defaultAsyncAuth;
+
   /// Default host for request. It will be used if no auth is set
   /// in endpoint. Host is depend on [mode]
   ApiHost defaultHost;
@@ -43,15 +47,17 @@ class ApiClient {
   /// Request handler, has lowest priority in [_handle]
   Function(Response) defaultHandler;
 
-  ApiClient(this.client,
+  ApiClient(
+    this.client,
     this.mode, {
-      this.defaultPrefix,
-      this.defaultHost,
-      this.defaultAuth,
-      this.logger,
-      this.handlers,
-      this.defaultHandler,
-    }) {
+    this.defaultPrefix,
+    this.defaultHost,
+    this.defaultAuth,
+    this.defaultAsyncAuth,
+    this.logger,
+    this.handlers,
+    this.defaultHandler,
+  }) {
     logger ??= DefaultApiLogger();
   }
 
@@ -69,6 +75,11 @@ class ApiClient {
     }
     if (ep.auth != null) {
       request.headers['Authorization'] = ep.auth.get();
+    } else if (defaultAsyncAuth != null) {
+      var a = await defaultAsyncAuth();
+      if (a != null) {
+        request.headers['Authorization'] = a.get();
+      }
     } else if (defaultAuth != null) {
       request.headers['Authorization'] = defaultAuth.get();
     }
